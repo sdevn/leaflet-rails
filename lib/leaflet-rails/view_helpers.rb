@@ -46,8 +46,8 @@ module Leaflet
       end
 
       if circles
-        circles.each do |circle|
-          output << "L.circle(['#{circle[:latlng][0]}', '#{circle[:latlng][1]}'], #{circle[:radius]}, {
+        circles.each_with_index do |circle, index|
+          output << "circle#{index} = L.circle(['#{circle[:latlng][0]}', '#{circle[:latlng][1]}'], #{circle[:radius]}, {
            color: '#{circle[:color]}',
            fillColor: '#{circle[:fillColor]}',
            fillOpacity: #{circle[:fillOpacity]}
