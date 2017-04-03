@@ -31,16 +31,17 @@ module Leaflet
       end
 
       if markers
+        output << "var marker#{index};"
         markers.each_with_index do |marker, index|
           if marker[:icon]
             icon_settings = prep_icon_settings(marker[:icon])
             output << "var #{icon_settings[:name]}#{index} = L.icon({iconUrl: '#{icon_settings[:icon_url]}', shadowUrl: '#{icon_settings[:shadow_url]}', iconSize: #{icon_settings[:icon_size]}, shadowSize: #{icon_settings[:shadow_size]}, iconAnchor: #{icon_settings[:icon_anchor]}, shadowAnchor: #{icon_settings[:shadow_anchor]}, popupAnchor: #{icon_settings[:popup_anchor]}});"
-            output << "marker = L.marker([#{marker[:latlng][0]}, #{marker[:latlng][1]}], {icon: #{icon_settings[:name]}#{index}}).addTo(map);"
+            output << "marker#{index} = L.marker([#{marker[:latlng][0]}, #{marker[:latlng][1]}], {icon: #{icon_settings[:name]}#{index}}).addTo(map);"
           else
-            output << "marker = L.marker([#{marker[:latlng][0]}, #{marker[:latlng][1]}]).addTo(map);"
+            output << "marker#{index} = L.marker([#{marker[:latlng][0]}, #{marker[:latlng][1]}]).addTo(map);"
           end
           if marker[:popup]
-            output << "marker.bindPopup('#{escape_javascript marker[:popup]}');"
+            output << "marker#{index}.bindPopup('#{escape_javascript marker[:popup]}');"
           end
         end
       end
